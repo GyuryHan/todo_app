@@ -3,49 +3,35 @@ import './App.css';
 import List from './List.jsx';
 
 const App = () => {
-  // const [todos, setTodos] = useState(['react공부']);
-  // const [loading, setLoading] = useState(false);
-  const [todos, setTodos] = useState([
-      {
-        id: 1,
-        title: "할일 1",
-        checked: true
-      },
-      {
-        id: 2,
-        title: "할일 2",
-        checked: false
-      },
-      {
-        id: 3,
-        title: "할일 3",
-        checked: true
-      }
-    ]);
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState();
+  const [loading, setLoading] = useState(false);
 
   const ChangeInputData = (e) => {
-    setTodos(e.target.value);
+    setNewTodo(e.target.value);
   }
 
   const addTodo = (e) => {
     e.preventDefault();
-    // setTodos([todos]);
+    setTodos([...todos, {'title': newTodo, 'id': todos.id, 'text': todos.text}]);
+  }
+
+  const fetchInitialData = async () => {
+    setLoading(true);
+    const response = await fetch('https://yts-proxy.now.sh/list_movies.json?sort_by=rating');
+    const initialData = await response.json();
+    setTodos(initialData);
+    setLoading(false);
   }
 
   useEffect( () => {
     console.log("rendering", todos);
-  }, [todos])
+  },[todos])
 
-  // const fetchInitialData = async () => {
-  //   const response = await fetch('http//localhost:8080/todo');
-  //   const initialData = await response.json();
-  //   setTodos(initialData);
-  // }
-
-  //  -- > fetch작업 할 때 useEffect에 직접 넣지 말고 함수를 넣어야 함
-  // useEffect( () => {
-  //   fetchInitialData();
-  // })
+  // fetch작업 할 때 useEffect에 직접 넣지 말고 함수를 넣어야 함
+  useEffect( () => {
+    fetchInitialData();
+  },[])
  
 
   return (
@@ -56,8 +42,7 @@ const App = () => {
       <input type="text" name="" onChange={ChangeInputData}/>
       <button onClick={addTodo}>추가</button>
     </form>
-
-    <List todos={todos}/>
+    <List todos={todos} loading={loading}/>
     </>
   )
 }

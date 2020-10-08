@@ -1,0 +1,29 @@
+{
+  "todos": [
+      {
+        "id": "1",
+        "title": "react",
+        "text": "todoList 만들기"
+      },
+      {
+        "id": "2",
+        "title": "운동하기",
+        "text": "스트레칭 및 복근운동"
+      },
+      {
+        "id": "3",
+        "title": "node.js",
+        "text": "인강보기"
+      },
+      {
+        "id": "4",
+        "title": "프로젝트 css수정",
+        "text": "반응형수정"
+      },
+      {
+        "id": "5",
+        "title": "github push",
+        "text": "이클립스 커밋하기"
+      }
+  ]
+}
