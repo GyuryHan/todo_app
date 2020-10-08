@@ -18,7 +18,7 @@ const App = () => {
 
   const fetchInitialData = async () => {
     setLoading(true);
-    const response = await fetch('https://yts-proxy.now.sh/list_movies.json?sort_by=rating');
+    const response = await fetch('https://gyuryhan.github.io/todo_app/src/data.json');
     const initialData = await response.json();
     setTodos(initialData);
     setLoading(false);
