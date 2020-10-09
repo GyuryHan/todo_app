@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import List from './List.jsx';
+import axios from 'axios';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const ChangeInputData = (e) => {
     setNewTodo(e.target.value);
@@ -13,15 +14,13 @@ const App = () => {
 
   const addTodo = (e) => {
     e.preventDefault();
-    setTodos([...todos, {'title': newTodo, 'id': todos.id, 'text': todos.text}]);
+    setTodos([...todos, newTodo]);
   }
 
-  const fetchInitialData = async () => {
-    setLoading(true);
-    const response = await fetch('https://gyuryhan.github.io/todo_app/data/data.json');
-    const initialData = await response.json();
-    setTodos(initialData);
-    setLoading(false);
+  const getTodos = async () => {
+    const response = await axios.get('https://gyuryhan.github.io/todo_app/data/data.json');
+        setTodos(response) ;
+        setLoading(false);
   }
 
   useEffect( () => {
@@ -30,7 +29,8 @@ const App = () => {
 
   // fetch작업 할 때 useEffect에 직접 넣지 말고 함수를 넣어야 함
   useEffect( () => {
-    fetchInitialData();
+    // fetchInitialData();
+    getTodos();
   },[])
  
 

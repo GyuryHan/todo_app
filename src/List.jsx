@@ -1,10 +1,11 @@
 import React from 'react';
 
 const List = ({todos, loading}) => {
-  
+  console.log(loading);
   let todoList = <div>loading...</div>;
-  if(!loading) todoList = todos.map( (todo) => <li key={todo.id}>{todo.title}</li> )
-
+  if(!loading) {
+     todoList = todos.map( (todo) => <li key={todo.id}>{todo.title}</li> )
+  }
   return (
     <ul>
       {todoList}
